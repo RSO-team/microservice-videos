@@ -1,1 +1,3 @@
-si\fri\rsoteam\App.class
+si\fri\rsoteam\entities\TagEntity.class
+si\fri\rsoteam\converters\InstantAttributeConverter.class
+si\fri\rsoteam\entities\VideoEntity.class

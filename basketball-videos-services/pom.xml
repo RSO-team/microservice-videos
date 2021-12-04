@@ -12,8 +12,8 @@
   <artifactId>basketball-videos-services</artifactId>
 
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>15</maven.compiler.source>
+    <maven.compiler.target>15</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -51,9 +51,22 @@
 
     <dependency>
       <groupId>si.fri.rsoteam</groupId>
-      <artifactId>basketball-events-models</artifactId>
+      <artifactId>basketball-videos-models</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>si.fri.rsoteam</groupId>
+      <artifactId>basketball-videos-lib</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+      <dependency>
+          <groupId>org.eclipse.microprofile.metrics</groupId>
+          <artifactId>microprofile-metrics-api</artifactId>
+          <version>2.3.3</version>
+          <scope>compile</scope>
+      </dependency>
 
   </dependencies>
 </project>

@@ -1,1 +1,6 @@
-si\fri\rsoteam\App.class
+si\fri\rsoteam\services\beans\TagsBean.class
+si\fri\rsoteam\services\mappers\VideoMapper.class
+si\fri\rsoteam\services\beans\VideosBean.class
+si\fri\rsoteam\services\producers\PersistenceProducer.class
+si\fri\rsoteam\services\config\RestConfig.class
+si\fri\rsoteam\services\mappers\TagMapper.class
