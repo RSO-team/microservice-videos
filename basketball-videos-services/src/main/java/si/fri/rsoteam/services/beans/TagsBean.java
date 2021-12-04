@@ -5,6 +5,7 @@ import si.fri.rsoteam.entities.TagEntity;
 import si.fri.rsoteam.lib.dtos.TagDto;
 import si.fri.rsoteam.services.mappers.TagMapper;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+@RequestScoped
 public class TagsBean {
     private Logger log = Logger.getLogger(TagsBean.class.getName());
 
