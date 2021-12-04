@@ -22,7 +22,7 @@ public class VideoEntity implements java.io.Serializable {
     @Size(min = 3, max = 100)
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinTable(name = "video_tags", joinColumns = @JoinColumn(name = "video_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<TagEntity> tags;
 
