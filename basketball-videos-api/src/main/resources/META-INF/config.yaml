@@ -1,0 +1,35 @@
+kumuluzee:
+  name: basketball-videos
+  env:
+    name: dev
+  version: 1.0.0
+  server:
+    base-url: http://localhost:8081
+    http:
+      port: 8081
+  datasources:
+    - jndi-name: jdbc/VideosDS
+      connection-url: jdbc:postgresql://pg-events.clvqrwayazxs.eu-central-1.rds.amazonaws.com/videos
+      username: postgres
+      password: postgres12
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/VideosDS
+  metrics:
+    web-instrumentation:
+      - name: videos-endpoint
+        url-pattern: /v1/videos/*
+  rest-client:
+    registrations:
+      - class: videos-api
+        url: http://localhost:8081/v1
+        read-timeout: 5000
+  config:
+    consul:
+      agent: http://localhost:8500
+
+rest-config:
+  maintenance-mode: false
+  api-token: htn12kss3
