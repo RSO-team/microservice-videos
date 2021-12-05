@@ -34,24 +34,24 @@ public class VideosResource {
     protected UriInfo uriInfo;
 
     @GET
-    public Response getObjects() {
+    public Response getVideos() {
         return Response.ok(videosBean.getAllVideos()).build();
     }
 
     @GET
     @Path("/{objectId}")
-    public Response getEventById(@PathParam("objectId") Integer id) {
+    public Response getVideoById(@PathParam("objectId") Integer id) {
         return Response.ok(videosBean.getVideo(id)).build();
     }
 
     @POST
-    public Response createEvent(VideoDto videoDto) {
+    public Response createVideo(VideoDto videoDto) {
         return Response.status(201).entity(videosBean.createVideo(videoDto)).build();
     }
 
     @PUT
     @Path("{objectId}")
-    public Response updateEvent(@PathParam("objectId") Integer id, VideoDto eventDto) {
+    public Response updateVideo(@PathParam("objectId") Integer id, VideoDto eventDto) {
         return Response.status(201).entity(videosBean.updateVideo(eventDto, id)).build();
     }
 

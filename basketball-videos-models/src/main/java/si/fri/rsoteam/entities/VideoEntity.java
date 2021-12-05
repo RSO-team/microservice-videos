@@ -4,6 +4,8 @@ package si.fri.rsoteam.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,18 +15,21 @@ public class VideoEntity implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
     private Integer id;
 
 
     @Size(min = 3, max = 20)
     private String link;
 
+
+
     @Size(min = 3, max = 100)
     private String description;
 
-    @OneToMany
-    @JoinTable(name = "video_tags", joinColumns = @JoinColumn(name = "video_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<TagEntity> tags;
+    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval=true)
+    @JoinColumn(name = "tag_id")
+    private List<TagEntity> tags = new ArrayList<>();
 
     private Instant createdAt;
 
@@ -60,11 +65,11 @@ public class VideoEntity implements java.io.Serializable {
         this.description = description;
     }
 
-    public Set<TagEntity> getTags() {
+    public List<TagEntity> getTags() {
         return tags;
     }
 
-    public void setTags(Set<TagEntity> tags) {
+    public void setTags(List<TagEntity> tags) {
         this.tags = tags;
     }
 }

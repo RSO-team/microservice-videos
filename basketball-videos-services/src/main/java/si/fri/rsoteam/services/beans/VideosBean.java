@@ -2,6 +2,7 @@ package si.fri.rsoteam.services.beans;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rsoteam.entities.VideoEntity;
 import si.fri.rsoteam.lib.dtos.VideoDto;
+import si.fri.rsoteam.services.mappers.TagMapper;
 import si.fri.rsoteam.services.mappers.VideoMapper;
 
 import javax.enterprise.context.RequestScoped;
@@ -41,10 +42,8 @@ public class VideosBean {
                 .collect(Collectors.toList());
     }
 
-     //TODO this will purposly make a lot of call to EM, to lower performance, for metrics
     public VideoDto createVideo(VideoDto videoDto) {
         VideoEntity videoEntity = VideoMapper.dtoToEntity(videoDto);
-        videoDto.tags=videoDto.tags.stream().map(tagsBean::createTag).collect(Collectors.toSet());
         this.beginTx();
         em.persist(videoEntity);
         this.commitTx();
@@ -59,7 +58,7 @@ public class VideosBean {
         videoEntity.setLink(eventDto.link);
         videoEntity.setCreatedAt(eventDto.createdAt);
         videoEntity.setDescription(eventDto.description);
-        // TODO update labels
+        //videoEntity.setTags(eventDto.tags.stream().map(TagMapper::dtoToEntity).collect(Collectors.toList()));
         em.persist(videoEntity);
         this.commitTx();
 
@@ -67,9 +66,15 @@ public class VideosBean {
     }
 
     public void deleteVideo(Integer id) {
-        if (em.find(VideoEntity.class, id) != null) {
+        VideoEntity videoEntity = em.find(VideoEntity.class, id);
+        if (videoEntity != null) {
+
+          //  em.createQuery("DELETE FROM video_tag WHERE video_tag.id IN ( SELECT video_tag.id from video_tag where video_tag.video_id = ?1)")
+          //                  .setParameter(1,videoEntity.getId()).getResultList();
+
+            videoEntity.getTags().forEach(tagEntity -> tagsBean.deleteTag(tagEntity.getId()));
             this.beginTx();
-            em.remove(id);
+            em.remove(videoEntity);
             this.commitTx();
         }
     }

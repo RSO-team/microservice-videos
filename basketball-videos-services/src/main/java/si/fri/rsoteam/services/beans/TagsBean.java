@@ -31,24 +31,11 @@ public class TagsBean {
         return em.createNamedQuery("Tag.getAll", TagEntity.class).getResultList().stream().map(TagMapper::entityToDto).collect(Collectors.toList());
     }
 
-    public TagDto createTag(TagDto tagDto) {
-        List<TagDto> list = getAllTags();
-        Optional<TagDto> foundTag = list.stream().filter(tagDto1 -> Objects.equals(tagDto1.description, tagDto.description)).findFirst();
-        if(foundTag.isEmpty()){
-            TagEntity tagEntity = TagMapper.dtoToEntity(tagDto);
-            this.beginTx();
-            em.persist(tagEntity);
-            this.commitTx();
-            return TagMapper.entityToDto(tagEntity);
-        }else{
-            return foundTag.get();
-        }
-    }
-
     public void deleteTag(Integer id) {
-        if (em.find(TagEntity.class, id) != null) {
+        TagEntity tagEntity = em.find(TagEntity.class, id);
+        if ( tagEntity != null) {
             this.beginTx();
-            em.remove(id);
+            em.remove(tagEntity);
             this.commitTx();
         }
     }

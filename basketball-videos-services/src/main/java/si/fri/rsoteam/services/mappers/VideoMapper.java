@@ -14,7 +14,7 @@ public class VideoMapper {
         videoDto.link = et.getLink();
         videoDto.description = et.getDescription();
         videoDto.createdAt = et.getCreatedAt();
-        videoDto.tags = et.getTags().stream().map(TagMapper::entityToDto).collect(Collectors.toSet());
+        videoDto.tags = et.getTags().stream().map(TagMapper::entityToDto).collect(Collectors.toList());
 
         return videoDto;
     }
@@ -24,7 +24,7 @@ public class VideoMapper {
         videoEntity.setDescription(videoDto.description);
         videoEntity.setCreatedAt(videoDto.createdAt);
         videoEntity.setLink(videoDto.link);
-        videoEntity.setTags(videoDto.tags.stream().map(TagMapper::dtoToEntity).collect(Collectors.toSet()));
+        videoEntity.setTags(videoDto.tags.stream().map(TagMapper::dtoToEntity).collect(Collectors.toList()));
         videoEntity.setLink(videoDto.link);
 
         return  videoEntity;
