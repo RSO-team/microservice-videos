@@ -17,10 +17,10 @@ kumuluzee:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/VideosDS
-  metrics:
-    web-instrumentation:
-      - name: videos-endpoint
-        url-pattern: /v1/videos/*
+    metrics:
+      web-instrumentation:
+        - name: videos-endpoint
+          url-pattern: /v1/videos/*
   rest-client:
     registrations:
       - class: videos-api
