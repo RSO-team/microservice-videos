@@ -27,8 +27,7 @@ public class VideoEntity implements java.io.Serializable {
     @Size(min = 3, max = 100)
     private String description;
 
-    @OneToMany(cascade={CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval=true)
-    @JoinColumn(name = "tag_id")
+    @OneToMany(mappedBy = "video",cascade={CascadeType.PERSIST,CascadeType.REMOVE}, orphanRemoval=true)
     private List<TagEntity> tags = new ArrayList<>();
 
     private Instant createdAt;

@@ -13,7 +13,7 @@ spec:
         app: basketball-videos
     spec:
       containers:
-        - image: lgaljo/rt_basketball_videos:2021-12-06-03-07-18
+        - image: lgaljo/rt_basketball_videos:2021-12-06-04-06-53
           name: basketball-videos
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL

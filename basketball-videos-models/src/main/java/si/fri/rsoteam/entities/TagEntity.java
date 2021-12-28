@@ -20,6 +20,9 @@ public class TagEntity {
         return id;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private VideoEntity  video;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -30,5 +33,13 @@ public class TagEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public VideoEntity getVideo() {
+        return video;
+    }
+
+    public void setVideo(VideoEntity video) {
+        this.video = video;
     }
 }
