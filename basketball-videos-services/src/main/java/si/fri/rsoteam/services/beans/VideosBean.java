@@ -44,6 +44,8 @@ public class VideosBean {
 
     public VideoDto createVideo(VideoDto videoDto) {
         VideoEntity videoEntity = VideoMapper.dtoToEntity(videoDto);
+        videoEntity.getTags().forEach(tagEntity -> tagEntity.setVideo(videoEntity));
+
         this.beginTx();
         em.persist(videoEntity);
         this.commitTx();
@@ -58,7 +60,8 @@ public class VideosBean {
         videoEntity.setLink(eventDto.link);
         videoEntity.setCreatedAt(eventDto.createdAt);
         videoEntity.setDescription(eventDto.description);
-        //videoEntity.setTags(eventDto.tags.stream().map(TagMapper::dtoToEntity).collect(Collectors.toList()));
+        videoEntity.setTags(eventDto.tags.stream().map(TagMapper::dtoToEntity).collect(Collectors.toList()));
+        videoEntity.getTags().forEach(tagEntity -> tagEntity.setVideo(videoEntity));
         em.persist(videoEntity);
         this.commitTx();
 
