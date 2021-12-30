@@ -1,5 +1,6 @@
 package si.fri.rsoteam.resources;
 
+import si.fri.rsoteam.config.ConfigProperties;
 import si.fri.rsoteam.lib.dtos.VideoDto;
 import si.fri.rsoteam.services.beans.VideosBean;
 
@@ -30,6 +31,9 @@ public class VideosResource {
     @Inject
     private VideosBean videosBean;
 
+    @Inject
+    private ConfigProperties configProperties;
+
     @Context
     protected UriInfo uriInfo;
 
@@ -41,7 +45,10 @@ public class VideosResource {
     @GET
     @Path("/{objectId}")
     public Response getVideoById(@PathParam("objectId") Integer id) {
-        return Response.ok(videosBean.getVideo(id)).build();
+        if (!configProperties.getBooleanProperty())
+            return Response.ok(videosBean.getVideo(id)).build();
+        else
+            return Response.serverError().build();
     }
 
     @POST

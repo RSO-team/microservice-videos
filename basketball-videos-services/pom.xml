@@ -71,6 +71,5 @@
           <version>2.3.3</version>
           <scope>compile</scope>
       </dependency>
-
   </dependencies>
 </project>
