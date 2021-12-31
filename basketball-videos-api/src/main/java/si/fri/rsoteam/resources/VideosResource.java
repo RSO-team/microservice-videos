@@ -38,11 +38,30 @@ public class VideosResource {
     protected UriInfo uriInfo;
 
     @GET
+    @Operation(summary = "Get list of videos", description = "Returns list of videos.")
+    @APIResponses({
+            @APIResponse(
+                    description = "videos list",
+                    responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = VideoDto.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "Number of objects in list")}
+            )
+    })
     public Response getVideos() {
         return Response.ok(videosBean.getAllVideos()).build();
     }
 
     @GET
+    @Operation(summary = "Get specific video by id", description = "Returns specific video by id or raises an error.")
+    @APIResponses({
+            @APIResponse(
+                    description = "Successfully returns video",
+                    responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = VideoDto.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "Number of objects in list")}
+            ),
+            @APIResponse(responseCode = "500", description = "Server error")
+    })
     @Path("/{objectId}")
     public Response getVideoById(@PathParam("objectId") Integer id) {
         if (!configProperties.getBooleanProperty())
@@ -52,17 +71,44 @@ public class VideosResource {
     }
 
     @POST
+    @Operation(summary = "Create new video", description = "Creates new video.")
+    @APIResponses({
+            @APIResponse(
+                    description = "Successfully creates video",
+                    responseCode = "201",
+                    content = @Content(schema = @Schema(implementation = VideoDto.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "")}
+            )
+    })
     public Response createVideo(VideoDto videoDto) {
         return Response.status(201).entity(videosBean.createVideo(videoDto)).build();
     }
 
     @PUT
+    @Operation(summary = "Update specific video.", description = "Updates specific video by id.")
+    @APIResponses({
+            @APIResponse(
+                    description = "Successfully returns video",
+                    responseCode = "201",
+                    content = @Content(schema = @Schema(implementation = VideoDto.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "Number of objects in list")}
+            ),
+    })
     @Path("{objectId}")
     public Response updateVideo(@PathParam("objectId") Integer id, VideoDto eventDto) {
         return Response.status(201).entity(videosBean.updateVideo(eventDto, id)).build();
     }
 
     @DELETE
+    @Operation(summary = "Delete specific video.", description = "Deletes specific video by id.")
+    @APIResponses({
+            @APIResponse(
+                    description = "Successfully deleted video",
+                    responseCode = "204",
+                    content = @Content(schema = @Schema(implementation = VideoDto.class, type = SchemaType.ARRAY)),
+                    headers = {@Header(name = "X-Total-Count", description = "Number of objects in list")}
+            ),
+    })
     @Path("{objectId}")
     public Response deleteEvent(@PathParam("objectId") Integer id) {
         videosBean.deleteVideo(id);
