@@ -1,5 +1,7 @@
 package si.fri.rsoteam.services.beans;
 
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rsoteam.entities.TagEntity;
 import si.fri.rsoteam.lib.dtos.TagDto;
@@ -9,14 +11,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RequestScoped
 public class TagsBean {
-    private Logger log = Logger.getLogger(TagsBean.class.getName());
+    private Logger log = LogManager.getLogger(TagsBean.class.getName());
 
     @Inject
     private EntityManager em;

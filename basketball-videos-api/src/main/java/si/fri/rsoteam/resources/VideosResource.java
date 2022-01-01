@@ -1,5 +1,7 @@
 package si.fri.rsoteam.resources;
 
+import com.kumuluz.ee.logs.cdi.Log;
+import com.kumuluz.ee.logs.cdi.LogParams;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -25,15 +27,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.util.logging.Logger;
+
 
 @ApplicationScoped
 @Path("/videos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class VideosResource {
-
-    private Logger log = Logger.getLogger(VideosResource.class.getName());
 
     @Inject
     private VideosBean videosBean;
@@ -54,6 +54,7 @@ public class VideosResource {
                     headers = {@Header(name = "X-Total-Count", description = "Number of objects in list")}
             )
     })
+    @Log(LogParams.METRICS)
     public Response getVideos() {
         return Response.ok(videosBean.getAllVideos()).build();
     }
@@ -70,6 +71,7 @@ public class VideosResource {
             @APIResponse(responseCode = "500", description = "Server error")
     })
     @Path("/{objectId}")
+    @Log(LogParams.METRICS)
     public Response getVideoById(@PathParam("objectId") Integer id) {
         if (!configProperties.getBooleanProperty())
             return Response.ok(videosBean.getVideo(id)).build();
@@ -87,6 +89,7 @@ public class VideosResource {
                     headers = {@Header(name = "X-Total-Count", description = "")}
             )
     })
+    @Log(LogParams.METRICS)
     public Response createVideo(VideoDto videoDto) {
         return Response.status(201).entity(videosBean.createVideo(videoDto)).build();
     }
@@ -102,6 +105,7 @@ public class VideosResource {
             ),
     })
     @Path("{objectId}")
+    @Log(LogParams.METRICS)
     public Response updateVideo(@PathParam("objectId") Integer id, VideoDto eventDto) {
         return Response.status(201).entity(videosBean.updateVideo(eventDto, id)).build();
     }
@@ -117,6 +121,7 @@ public class VideosResource {
             ),
     })
     @Path("{objectId}")
+    @Log(LogParams.METRICS)
     public Response deleteEvent(@PathParam("objectId") Integer id) {
         videosBean.deleteVideo(id);
         return Response.status(204).build();
