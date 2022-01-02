@@ -1,5 +1,7 @@
 package si.fri.rsoteam.resources;
 
+import com.kumuluz.ee.logs.cdi.Log;
+import com.kumuluz.ee.logs.cdi.LogParams;
 import si.fri.rsoteam.config.ConfigProperties;
 
 import javax.enterprise.context.RequestScoped;
@@ -22,6 +24,7 @@ public class ConfigResource {
 
     @GET
     @Path("/config")
+    @Log(LogParams.METRICS)
     public Response test() {
         String response =
                 "{" +
