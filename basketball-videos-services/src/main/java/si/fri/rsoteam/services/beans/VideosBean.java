@@ -1,4 +1,6 @@
 package si.fri.rsoteam.services.beans;
+import com.kumuluz.ee.logs.LogManager;
+import com.kumuluz.ee.logs.Logger;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import si.fri.rsoteam.entities.VideoEntity;
 import si.fri.rsoteam.lib.dtos.VideoDto;
