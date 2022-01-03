@@ -1,5 +1,6 @@
 package si.fri.rsoteam.resources;
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.logs.cdi.Log;
 import com.kumuluz.ee.logs.cdi.LogParams;
 import si.fri.rsoteam.config.ConfigProperties;
@@ -12,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 
 @RequestScoped
 @Path("/")
@@ -39,6 +41,18 @@ public class ConfigResource {
                 properties.getBooleanProperty(),
                 properties.getIntegerProperty());
 
+        return Response.ok(response).build();
+    }
+
+    @DiscoverService("basketball-users")
+    private URI userServiceUrl;
+
+    @GET
+    @Path("/discovery")
+    @Log(LogParams.METRICS)
+    public Response discovery() {
+        String response =
+               userServiceUrl.getHost();
         return Response.ok(response).build();
     }
 }
