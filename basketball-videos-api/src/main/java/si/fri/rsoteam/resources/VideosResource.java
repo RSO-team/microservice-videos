@@ -2,6 +2,11 @@ package si.fri.rsoteam.resources;
 
 import com.kumuluz.ee.logs.cdi.Log;
 import com.kumuluz.ee.logs.cdi.LogParams;
+import org.eclipse.microprofile.metrics.Histogram;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Metric;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -44,6 +49,10 @@ public class VideosResource {
     @Context
     protected UriInfo uriInfo;
 
+    @Inject
+    @Metric(name = "video_tags_histogram")
+    Histogram histogram;
+
     @GET
     @Operation(summary = "Get list of videos", description = "Returns list of videos.")
     @APIResponses({
@@ -72,6 +81,8 @@ public class VideosResource {
     })
     @Path("/{objectId}")
     @Log(LogParams.METRICS)
+    @Counted(name = "played_video_counter")
+    @Metered(name = "played_video_meter")
     public Response getVideoById(@PathParam("objectId") Integer id) {
         if (!configProperties.getBooleanProperty())
             return Response.ok(videosBean.getVideo(id)).build();
@@ -90,7 +101,10 @@ public class VideosResource {
             )
     })
     @Log(LogParams.METRICS)
+    @Counted(name = "created_video_counter")
+    @Timed(name = "create_video_timer")
     public Response createVideo(VideoDto videoDto) {
+        histogram.update(videoDto.tags.size());
         return Response.status(201).entity(videosBean.createVideo(videoDto)).build();
     }
 

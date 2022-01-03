@@ -61,6 +61,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.metrics</groupId>
+            <artifactId>kumuluzee-metrics-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>si.fri.rsoteam</groupId>
             <artifactId>basketball-videos-services</artifactId>
             <version>${project.version}</version>
