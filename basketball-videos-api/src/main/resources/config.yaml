@@ -58,6 +58,9 @@ kumuluzee:
       hosts: http://localhost:2379
     ttl: 100
     ping-interval: 5
+  cors-filter:
+    servlet:
+      allow-origin: "*"
 
 rest-config:
   maintenance-mode: false
