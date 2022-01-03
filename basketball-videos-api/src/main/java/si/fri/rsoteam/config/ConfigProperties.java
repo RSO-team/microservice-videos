@@ -14,6 +14,8 @@ public class ConfigProperties {
 
     @ConfigValue(watch = true)
     private Boolean booleanProperty;
+
+    @ConfigValue(watch = true)
     private Integer integerProperty;
 
     public String getStringProperty() {

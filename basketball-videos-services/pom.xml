@@ -40,7 +40,10 @@
       <artifactId>kumuluzee-rest-core</artifactId>
       <version>${kumuluzee-rest.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.kumuluz.ee.discovery</groupId>
+      <artifactId>kumuluzee-discovery-etcd</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.kumuluz.ee.metrics</groupId>
       <artifactId>kumuluzee-metrics-core</artifactId>
