@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.Optional;
 
 @RequestScoped
 @Path("/")
@@ -44,15 +45,18 @@ public class ConfigResource {
         return Response.ok(response).build();
     }
 
-    @DiscoverService("basketball-users")
-    private URI userServiceUrl;
+    @Inject
+    @DiscoverService(value = "basketball-users")
+    private Optional<String> userServiceUrl;
 
     @GET
     @Path("/discovery")
     @Log(LogParams.METRICS)
     public Response discovery() {
-        String response =
-               userServiceUrl.getHost();
-        return Response.ok(response).build();
+        if (userServiceUrl != null && userServiceUrl.isPresent()) {
+            String response = userServiceUrl.get();
+            return Response.ok(response).build();
+        }
+        return Response.ok("no users service detected").build();
     }
 }

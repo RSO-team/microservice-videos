@@ -9,9 +9,9 @@ kumuluzee:
       port: 8081
   datasources:
     - jndi-name: jdbc/VideosDS
-      connection-url: jdbc:postgresql://ella.db.elephantsql.com/jcjcrytq
-      username: jcjcrytq
-      password: pw6U4_unEbX1MK56YeioRUklP__EhklH
+      connection-url: jdbc:postgresql://pg-events.clvqrwayazxs.eu-central-1.rds.amazonaws.com/videos
+      username: postgres
+      password: postgres12
       max-pool-size: 1
   health:
     checks:
@@ -51,11 +51,10 @@ kumuluzee:
     start-retry-delay-ms: 500
     max-retry-delay-ms: 900000
     etcd:
-      hosts: http://etcd:2379
+      hosts: http://localhost:2379
   discovery:
-    #cluster:
     etcd:
-      hosts: http://etcd:2379
+      hosts: http://localhost:2379
     ttl: 100
     ping-interval: 5
   cors-filter:
