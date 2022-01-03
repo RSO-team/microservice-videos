@@ -7,10 +7,12 @@ import si.fri.rsoteam.config.ConfigProperties;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
@@ -47,15 +49,16 @@ public class ConfigResource {
 
     @Inject
     @DiscoverService(value = "basketball-users")
-    private Optional<String> userServiceUrl;
+    Provider<Optional<WebTarget>> userServiceUrl;
 
     @GET
     @Path("/discovery")
     @Log(LogParams.METRICS)
     public Response discovery() {
-        if (userServiceUrl != null && userServiceUrl.isPresent()) {
-            String response = userServiceUrl.get();
-            return Response.ok(response).build();
+        Optional<WebTarget> target = userServiceUrl.get();
+
+        if (target.isPresent()) {
+            return Response.ok(target.get().getUri().toString()).build();
         }
         return Response.ok("no users service detected").build();
     }
