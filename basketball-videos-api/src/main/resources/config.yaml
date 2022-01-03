@@ -67,5 +67,5 @@ rest-config:
   maintenance-mode: false
   api-token: htn12kss3
   string-property: Monday
-  boolean-property: true
+  boolean-property: false
   integer-property: 23
