@@ -17,14 +17,14 @@ spec:
           name: basketball-videos
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://pg-events.clvqrwayazxs.eu-central-1.rds.amazonaws.com/videos
+              value: jdbc:postgresql://ella.db.elephantsql.com/jcjcrytq
             - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: postgres
+              value: jcjcrytq
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: pg-pass
-                  key: KUMULUZEE_DATASOURCES0_PASSWORD
+                  key: KUMULUZEE_VIDEOS_DATASOURCES0_PASSWORD
           ports:
             - containerPort: 8081
               name: server
