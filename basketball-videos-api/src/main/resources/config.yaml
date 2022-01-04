@@ -12,7 +12,8 @@ kumuluzee:
       connection-url: jdbc:postgresql://pg-events.clvqrwayazxs.eu-central-1.rds.amazonaws.com/videos
       username: postgres
       password: postgres12
-      max-pool-size: 1
+      pool:
+        max-size: 1
   health:
     checks:
       data-source-health-check:
