@@ -52,7 +52,7 @@ kind: Service
 metadata:
   name: basketball-videos
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8081
       protocol: TCP
