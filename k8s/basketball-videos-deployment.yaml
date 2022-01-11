@@ -18,6 +18,8 @@ spec:
           env:
             - name: KUMULUZEE_CONFIG_ETCD_HOSTS
               value: http://etcd:2379
+            - name: KUMULUZEE_SERVER_BASEURL
+              value: http://basketball-videos:8081
             - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
               value: http://etcd:2379
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -52,7 +54,7 @@ kind: Service
 metadata:
   name: basketball-videos
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8081
       protocol: TCP
